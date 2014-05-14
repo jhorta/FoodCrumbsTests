@@ -100,7 +100,7 @@ ActivityInstrumentationTestCase2<Main_Menu_Activity> {
 
 		// Use the ActivityMonitor to make sure that the Favorites View Activity has started
 		Favorites_View_Activity favActivity = (Favorites_View_Activity)
-				receiverActivityMonitor.waitForActivityWithTimeout(5);
+				receiverActivityMonitor.waitForActivityWithTimeout(1000);
 		assertNotNull("Favorites View Activity is null", favActivity);
 		assertEquals("Monitor for ReceiverActivity has not been called",
 				1, receiverActivityMonitor.getHits());
@@ -134,7 +134,7 @@ ActivityInstrumentationTestCase2<Main_Menu_Activity> {
 
 		// Use the ActivityMonitor to make sure that the Map View Activity has started
 		Map_View_Activity mapActivity = (Map_View_Activity)
-				receiverActivityMonitor.waitForActivityWithTimeout(10);
+				receiverActivityMonitor.waitForActivityWithTimeout(1000);
 		assertNotNull("Map View Activity is null", mapActivity);
 		assertEquals("Monitor for ReceiverActivity has not been called",
 				1, receiverActivityMonitor.getHits());
@@ -171,7 +171,7 @@ ActivityInstrumentationTestCase2<Main_Menu_Activity> {
 
 		// Use the ActivityMonitor to make sure that the Random View Activity has started
 		Random_Generator_Activity randomActivity = (Random_Generator_Activity)
-				receiverActivityMonitor.waitForActivityWithTimeout(5);
+				receiverActivityMonitor.waitForActivityWithTimeout(1000);
 		assertNotNull("Random Generator Activity is null", randomActivity);
 		assertEquals("Monitor for ReceiverActivity has not been called",
 				1, receiverActivityMonitor.getHits());
