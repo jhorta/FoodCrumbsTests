@@ -17,8 +17,7 @@ ActivityInstrumentationTestCase2<Map_View_Activity>{
 	private Map_View_Activity mActivity;
 	private SearchView sView;
 
-	
-	
+
 	// Constructor
 	public MapViewActivityTest() {
 		super(Map_View_Activity.class);
@@ -47,13 +46,7 @@ ActivityInstrumentationTestCase2<Map_View_Activity>{
 		assertNotNull("sView is null", sView);
 	}
 	
-	
-	/*
-	 * Test the location services dialog
-	 */
-	public void testLocationDialog() throws Exception {
-		
-	}
+
 	
 	
 	/*
@@ -102,11 +95,4 @@ ActivityInstrumentationTestCase2<Map_View_Activity>{
 	}
 	
 	
-	/*
-	 * Test zoomToCurrLocation - should zoom to your current location on the map (actions will
-	 * be automated but checking that the location is correct should be done manually)
-	 */
-	public void testZoomToCurrLocation() throws Exception {
-	
-	}
 }
