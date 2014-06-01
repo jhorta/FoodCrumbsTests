@@ -1,12 +1,11 @@
 package com.hortashorchatas.foodcrumbs.test;
 
-import android.app.Instrumentation.ActivityMonitor;
+import android.content.Intent;
 import android.support.v7.widget.SearchView;
 import android.test.ActivityInstrumentationTestCase2;
-import android.view.KeyEvent;
 import android.view.View;
 
-import com.hortashorchatas.foodcrumbs.Directions_Activity;
+import com.hortashorchatas.foodcrumbs.Globals;
 import com.hortashorchatas.foodcrumbs.Map_View_Activity;
 import com.hortashorchatas.foodcrumbs.R;
 
@@ -26,12 +25,14 @@ ActivityInstrumentationTestCase2<Map_View_Activity>{
 	
 	@Override
 	protected void setUp() throws Exception {
-		super.setUp();
 
 		// Turn off touch mode in the device (for if we send commands to the device)
 		setActivityInitialTouchMode(false);
 
 		// Initialize all of the assets we are testing
+		Intent i = new Intent(getInstrumentation().getContext(), Map_View_Activity.class);
+		i.putExtra("Source", Globals.SOURCE_HOME_PAGE);
+		setActivityIntent(i);
 		mActivity = getActivity();	
 		sView = (SearchView) mActivity.findViewById(R.id.action_search);
 	}
@@ -58,41 +59,10 @@ ActivityInstrumentationTestCase2<Map_View_Activity>{
 		getInstrumentation().invokeMenuActionSync(mActivity, R.id.action_search, 0);
 		
 		
-		// SearchView should be visible with the hint text "Enter a Location"
+		// SearchView should be visible with the hint text "Current Location"
 		assertTrue(View.VISIBLE == sView.getVisibility());
-		assertEquals("Enter a Location", sView.getQueryHint());
+		assertEquals("Current Location", sView.getQueryHint());
 	}
 	
-	
-	/*
-	 * Test clicking the directions icon - should start the Directions Activity
-	 */
-	public void testDirections() throws Exception {
-		// Create ActivityMonitor
-		ActivityMonitor receiverActivityMonitor = getInstrumentation().addMonitor(Directions_Activity.class.getName(),
-				null, false);
 		
-		// Click the directions icon
-		getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_MENU);
-		getInstrumentation().invokeMenuActionSync(mActivity, R.id.action_directions, 0);
-		
-		// Make sure the Directions Activity is started
-		Directions_Activity dirActivity = (Directions_Activity)
-				receiverActivityMonitor.waitForActivityWithTimeout(1000);
-		assertNotNull("Directions Activity is null", dirActivity);
-		assertEquals("Monitor for ReceiverActivity has not been called",
-				1, receiverActivityMonitor.getHits());
-		assertEquals("Activity is of wrong type",
-				Directions_Activity.class, dirActivity.getClass());
-
-
-		// Remove the ActivityMonitor
-		getInstrumentation().removeMonitor(receiverActivityMonitor);
-
-		// Close the Directions Activity
-		dirActivity.finish();
-		
-	}
-	
-	
 }
