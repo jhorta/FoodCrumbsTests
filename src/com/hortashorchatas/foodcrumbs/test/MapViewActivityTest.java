@@ -33,7 +33,7 @@ ActivityInstrumentationTestCase2<Map_View_Activity>{
 		Intent i = new Intent(getInstrumentation().getContext(), Map_View_Activity.class);
 		i.putExtra("Source", Globals.SOURCE_HOME_PAGE);
 		setActivityIntent(i);
-		mActivity = getActivity();	
+		mActivity = getActivity();
 		sView = (SearchView) mActivity.findViewById(R.id.action_search);
 	}
 
@@ -54,14 +54,25 @@ ActivityInstrumentationTestCase2<Map_View_Activity>{
 	 * Test clicking the search icon - should open a SearchView prompting the user to 
 	 * enter a location
 	 */
-	public void testSearch() throws Exception {		
+	public void testSearch() throws Exception {	
+		// Wait for current location to load
+		Thread.sleep(5000);
+		
+		
 		// Click the search icon (use instrumentation because it's a menu item)
 		getInstrumentation().invokeMenuActionSync(mActivity, R.id.action_search, 0);
 		
 		
 		// SearchView should be visible with the hint text "Current Location"
 		assertTrue(View.VISIBLE == sView.getVisibility());
-		assertEquals("Current Location", sView.getQueryHint());
+		assertEquals("Current Location", sView.getQuery().toString());
+	}
+	
+	
+	@Override
+	protected void tearDown() throws Exception
+	{
+		super.tearDown();
 	}
 	
 		
